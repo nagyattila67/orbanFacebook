@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="lib/bootstrap/bootstrap-5.0.1-dist/bootstrap-5.0.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/selectors.css">
+    <title>Sorvezető</title>
+    <script src="js/index.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-0 col-md-2 col-lg-2">
+                <img src="img/orbanv.jpeg" alt="Orbán Viktor">
+            </div>
+            <div id="main" class="col-sm-12 col-md-8 col-lg-8"
+                style="background-image: url(img/hello_rofik.jpg);background-size: 20%;background-repeat:repeat;">
+                <div class="row">
+                    <div class="col">
+                        <h1 id="title1">Kommenteljünk Orbán Viktor facebook profilján!</h1>
+                        <div id="div4table">
+                            <table class="table">
+                                <tbody id="examples"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-evenly">
+                    <div class="col-3"></div>
+                    <div class="col-3">
+                        <span>Rendezés pontszám szerint:</span>
+                    </div>
+                    <div class="col-2">
+                        <button class="button btn-secondary btn-small" onclick="increase()">növekvő</button>
+                    </div>
+                    <div class="col-2">
+                        <button class="button btn-secondary btn-small" onclick="decrease()">csökkenő</button>
+                    </div>
+                    <div class="col-2"></div>
+
+
+                </div>>
+
+                <div class="row justify-content-evenly">
+                    <div class="col-2"></div>
+                    <div class="col-4" style="text-align: center;">
+                        <button class="button btn-secondary" onclick="wannaOtherExamples()">Más példakommenteket
+                            kérek</button>
+                    </div>
+                    <div class="col-5" style="text-align:center">
+                        <span class="ml-3">Ha pedig akar, akár saját tartalmat is írhat hozzá!</span>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        <div class="mt-1" style="text-align: center;"><span>Az ön saját szövege: </span>
+                            <input style="width:500px" id="newText" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 row justify-content-center" style="text-align: center;">
+                    <div class="col-2">
+                        <span>Pontszám: </span><input style="width:50px" min="0" max="15" type="number"
+                            id="newPoint"></input>
+                    </div>
+                    <div class="col-1"><button class="button btn-secondary btn-small"
+                            onclick="newContent()">mehet</button>
+                    </div>
+                    <div class="col-1"><button class="button btn-secondary btn-small"
+                            onclick="frontWiev()">elölnézet</button></div>
+                    <div class="col-1"><button class="button btn-secondary btn-small"
+                            onclick="copyContent()">Másolás</button></div>
+                    <div class="col-4"><button class="button btn-primary btn-small" onclick="visitFacebook()">Látogatás
+                            O.V. facebook profiljára</button></div>
+                </div>
+                <div class="mt-3 row justify-content-center" style="text-align: center;">
+                    <div class="col-3"><span>Legtöbb pontot ér:</span></div>
+                    <div class="col-9"><span id="maxPointComment"></span></div>
+                </div>
+            </div>
+
+            <div class="col-sm-0 col-md-2 col-lg-2">
+                <img src="img/orbanv.jpeg" alt="Orbán Viktor">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
