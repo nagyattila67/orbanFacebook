@@ -1,25 +1,4 @@
-const sentences = ["Ha tízmillió oltásnál lemondasz, én beadatom még négyszer az oltást. Deal? ", "Csodálatos napot kívánok Önnek, drága elnök úr! De öröm olvasni az új posztját! &#9829 &#9829 &#9829 ", "Nagyon szépen köszönjük áldozatos munkáját! A jó Isten áldja meg és vigyázzon Önre! ", "Hálásan köszönjük tisztelt Miniszterelnök Úrnak megfeszített munkáját és hazánk megmentését! ", "Mi van főni? Már megint felugrott hány kiló? ", "A mi miniszterelnökünk egy remek ember! Sokat köszönhetünk Neki és az egész Csapatának! &#9996; ", "Isten áldása Önre és Hazánkra! ", "Ez még mindig a pörköltszaftos ing? ", "A jó Isten és a Szűzanya vigyázza a Miniszterelnök Úr lépteit mindörökre! ", "Ennek a csávónak nincs másik ruhája? ", "Maga a mi megmentőnk. Maga a fény az alaggutba! ", "Több krumlit a népnek! ", "Legyen béke, szabadság és egyetértés! ", "Hát milyen cuki ez a pasas, megeszlek, királyom, de édes vagy &#9829 ", "Kis birtok, nagy birtok, Viktorunkkal nem bírtok! ", "Még stadiont és kisvasutat a zembereknek! ", "Mi az, hogy együtt újra sikerülni fog? Mer eddig hányszor sikerült? ", "Én véletlenül kerültem ide, de ennyi eszement kommentet még az életbe nem olvastam! ", "Orban ist gut für Ungarn. ", "Veled vagyunk bátya! Hajrá! ", "Éjt nappallá téve dolgozik ez az áldott jó ember értünk Magyarokért! Az Isten áldása kísérje fáradhatatlan munkáját! ", "Az a szemét Gyurcsány az összes oltást saját magának adatta volna be, hogy egy se jusson a magyaroknak! De én úgy szeretem a Miniszterelnök Urat, hogy az összeset Önnek adatnám be, hogy sose legyen beteg! ", "De jól nézel ki, Viktorom, sok puszi! &#128139 &#128139 &#128139 "]
-const points = Array();
-const content = Array();
-let showedContent = Array();
-let increaseArray = Array();
-let orderArray = Array();
-
-const maxPoint = 15;
-sentences.forEach((value, index) => {
-    let point = Math.round(Math.random() * maxPoint);
-    points[index] = point;
-})
-
-sentences.forEach((value, index) => {
-    let myObject = Object();
-    myObject.text = value;
-    myObject.point = points[index];
-    myObject.status = true;
-    content[index] = myObject;
-})
-
-const randomizeOrderOfSentences = function () {
+export const randomizeOrderOfSentences = function (sentences,content) {
     for (let i = 0; i < sentences.length * 100; i++) {
         let myNumber1 = Math.floor(Math.random() * sentences.length);
         let myNumber2 = Math.floor(Math.random() * sentences.length);
@@ -29,20 +8,16 @@ const randomizeOrderOfSentences = function () {
         content[myNumber2] = element1;
     }
 }
-randomizeOrderOfSentences();
 
-const makeShowedSentences = function () {
+export const makeShowedSentences = function (showedContent) {
     showedContent = Array();
     for (let i = 0; i < 5; i++) {
         showedContent[i] = content[i];
     }
 
 }
-makeShowedSentences();
 
-
-
-const displayExamples = function () {
+export const displayExamples = function () {
     document.querySelector("#examples").innerHTML = "";
     document.querySelector("#examples").innerHTML =
         `<tr><td><small>áthúz</small></td><td><small>komment szövege</small></td><td><small>pont</small></td><td><small>töröl</small></td></tr>`;
@@ -61,34 +36,21 @@ ${value.status ? `<td><span>${value.text}</span></td>` : `<td><s style='color:gr
 `
     })
     addAllInputs();
-
-
-
 }
 
-
-
-const cancelFunction = function (index) {
+export const cancelFunction = function (index,showedContent) {
     console.log(index)
     showedContent[index].status ? showedContent[index].status = false : showedContent[index].status = true;
     console.log(showedContent[index].status)
     displayExamples();
 }
 
-const deleteFunction = function (index) {
+export const deleteFunction = function (index,showedContent) {
     showedContent.splice(index, 1);
     displayExamples();
 }
 
-
-document.addEventListener("DOMContentLoaded", () => {
-
-})
-document.addEventListener("DOMContentLoaded", () => { displayExamples() })
-//document.addEventListener("DOMContentLoaded", () => { displayExamples() })
-
-
-const addAllInputs = function () {
+export const addAllInputs = function () {
     let allCancelInput = document.querySelectorAll(".checkbox4cancel");
     let allDeleteInput = document.querySelectorAll(".checkbox4delete");
 
@@ -100,20 +62,17 @@ const addAllInputs = function () {
     })
 
 }
-/*document.addEventListener("DOMContentLoaded", () => {
-addAllInputs();}
-)*/
 
-const wannaOtherExamples = function () {
+export const wannaOtherExamples = function (sentences,content) {
     showedContent = Array();
     content.forEach((value) => { value.status = true })
-    randomizeOrderOfSentences();
-    makeShowedSentences();
+    randomizeOrderOfSentences(sentences,content);
+    makeShowedSentences(showedContent);
     displayExamples();
-    showMaxPointComment();
+    showMaxPointComment(showedContent);
 }
 
-const newContent = function () {
+export const newContent = function (showedContent) {
     let myNewText = document.querySelector("#newText").value;
     let myNewPoint = document.querySelector("#newPoint").value;
     myNewPoint = parseInt(myNewPoint);
@@ -134,7 +93,7 @@ const newContent = function () {
 
 }
 
-const frontWiev = function () {
+export const frontWiev = function (showedContent) {
     let textForWiev = "";
     showedContent.forEach((value) => {
         let myText = value.status ? value.text : '';
@@ -143,13 +102,12 @@ const frontWiev = function () {
     alert(textForWiev)
 }
 
-const makeOrderArray = function () {
+export const makeOrderArray = function (showedContent) {
     orderArray = Array();
     showedContent.forEach((value, index) => { orderArray[index] = showedContent[index].point })
 }
-makeOrderArray();
 
-const increase = function () {
+export const increase = function (orderArray,increaseArray,showedContent) {
     //orderArray=Array();
     makeOrderArray();
     increaseArray = Array();
@@ -174,11 +132,9 @@ const increase = function () {
         showedContentTemporary.splice(myIndex, 1)
     })
     if (dontDisplay == false) { displayExamples() };
-
-
 }
 
-const orderShowedContentAsOrderarrayWantIt = function () {
+export const orderShowedContentAsOrderarrayWantIt = function (showedContent) {
     showedContentTemporary = showedContent.slice(0)
     showedContent = Array();
     let myIndex = 0;
@@ -193,16 +149,14 @@ const orderShowedContentAsOrderarrayWantIt = function () {
     })
 }
 
-const decrease = function () {
+export const decrease = function () {
     makeOrderArray();
     increase();
     orderShowedContentAsOrderarrayWantIt();
     displayExamples();
 }
 
-let itWasShowedContent = Array();
-let dontDisplay = false;
-const showMaxPointComment = function () {
+export const showMaxPointComment = function (showedContent) {
     itWasShowedContent = showedContent.slice(0);
     makeOrderArray();
     dontDisplay = true;
@@ -212,13 +166,11 @@ const showMaxPointComment = function () {
     showedContent = itWasShowedContent.slice(0);
 }
 
-document.addEventListener("DOMContentLoaded", () => { showMaxPointComment(); })
-
-const visitProfile = function () {
+export const visitProfile = function () {
     window.open("https://www.facebook.com/orbanviktor")
 }
 
-const copyContent = function () {
+const copyContent = function (showedContent) {
     let textForWiev = "";
     showedContent.forEach((value) => {
         let myText = value.status ? value.text : '';
