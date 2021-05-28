@@ -9,7 +9,7 @@ export const randomizeOrderOfSentences = function (sentences,content) {
     }
 }
 
-export const makeShowedSentences = function (showedContent) {
+export const makeShowedSentences = function (showedContent,content) {
     showedContent = Array();
     for (let i = 0; i < 5; i++) {
         showedContent[i] = content[i];

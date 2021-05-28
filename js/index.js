@@ -200,10 +200,9 @@ const decrease = function () {
     displayExamples();
 }
 
-let itWasShowedContent = Array();
-let dontDisplay = false;
+
 const showMaxPointComment = function () {
-    itWasShowedContent = showedContent.slice(0);
+    let itWasShowedContent = showedContent.slice(0);
     makeOrderArray();
     dontDisplay = true;
     increase();
@@ -218,8 +217,9 @@ const visitProfile = function () {
     window.open("https://www.facebook.com/orbanviktor")
 }
 
+let textForWiev
 const copyContent = function () {
-    let textForWiev = "";
+    textForWiev = "";
     showedContent.forEach((value) => {
         let myText = value.status ? value.text : '';
         textForWiev += myText
