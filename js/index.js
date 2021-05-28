@@ -29,6 +29,7 @@ const randomizeOrderOfSentences = function () {
         content[myNumber2] = element1;
     }
 }
+//import {randomizeOrderOfSentences} from "/js/modules.js"
 randomizeOrderOfSentences();
 
 const makeShowedSentences = function () {
@@ -38,7 +39,7 @@ const makeShowedSentences = function () {
     }
 
 }
-makeShowedSentences();
+makeShowedSentences(sentences,content);
 
 
 
@@ -107,7 +108,7 @@ addAllInputs();}
 const wannaOtherExamples = function () {
     showedContent = Array();
     content.forEach((value) => { value.status = true })
-    randomizeOrderOfSentences();
+    randomizeOrderOfSentences(sentences,content);
     makeShowedSentences();
     displayExamples();
     showMaxPointComment();
@@ -165,7 +166,7 @@ const increase = function () {
         orderArray.splice(index, 1)
     }
     orderArray = increaseArray.slice(0);
-    showedContentTemporary = showedContent.slice(0)
+    let showedContentTemporary = showedContent.slice(0)
     showedContent = Array();
     let myIndex = 0;
     orderArray.forEach((value1) => {
@@ -200,7 +201,7 @@ const decrease = function () {
     displayExamples();
 }
 
-
+let dontDisplay=false;
 const showMaxPointComment = function () {
     let itWasShowedContent = showedContent.slice(0);
     makeOrderArray();
@@ -230,3 +231,6 @@ const copyContent = function () {
     document.querySelector("#textarea4copy").setSelectionRange(0, 99999)
     document.execCommand("copy");
 }
+
+document.addEventListener("DOMContentLoaded", () => { document.querySelector("#otherExamples").addEventListener("click",()=>{wannaOtherExamples()}) })
+
