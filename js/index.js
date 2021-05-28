@@ -4,155 +4,57 @@ const content = Array();
 let showedContent = Array();
 let increaseArray = Array();
 let orderArray = Array();
-
 const maxPoint = 15;
-sentences.forEach((value, index) => {
-    let point = Math.round(Math.random() * maxPoint);
-    points[index] = point;
-})
 
-sentences.forEach((value, index) => {
-    let myObject = Object();
-    myObject.text = value;
-    myObject.point = points[index];
-    myObject.status = true;
-    content[index] = myObject;
-})
 
-const randomizeOrderOfSentences = function () {
-    for (let i = 0; i < sentences.length * 100; i++) {
-        let myNumber1 = Math.floor(Math.random() * sentences.length);
-        let myNumber2 = Math.floor(Math.random() * sentences.length);
-        let element1 = content[myNumber1];
-        let element2 = content[myNumber2];
-        content[myNumber1] = element2;
-        content[myNumber2] = element1;
-    }
-}
-//import {randomizeOrderOfSentences} from "/js/modules.js"
-randomizeOrderOfSentences();
+import { opening } from "/js/modules.js"
+opening(sentences, points, content, maxPoint);
 
-const makeShowedSentences = function () {
+import { randomizeOrderOfSentences } from "/js/modules.js"
+randomizeOrderOfSentences(sentences, content);
+
+const makeShowedSentences = function (content) {
     showedContent = Array();
     for (let i = 0; i < 5; i++) {
         showedContent[i] = content[i];
     }
 
 }
-makeShowedSentences(sentences,content);
+//import {makeShowedSentences} from "/js/modules.js"
+makeShowedSentences(content);
 
+import { displayExamples } from "/js/modules.js"
 
-
-const displayExamples = function () {
-    document.querySelector("#examples").innerHTML = "";
-    document.querySelector("#examples").innerHTML =
-        `<tr><td><small>áthúz</small></td><td><small>komment szövege</small></td><td><small>pont</small></td><td><small>töröl</small></td></tr>`;
-    showedContent.forEach((value, index) => {
-        let checkboxId4cancel = "cancelId" + index;
-        let checkboxId4delete = "deleteId" + index;
-        document.querySelector("#examples").innerHTML += `
-<tr>
-<td><input type="checkbox" class="checkbox4cancel" id=${checkboxId4cancel} ${value.status ? "" : "checked"}></td>
-${value.status ? `<td><span>${value.text}</span></td>` : `<td><s style='color:grey'>${value.text}</s></td>`}
-
-
-<td>${value.point}</td>
-<td><img src="img/trash-bin.png" class="checkbox4delete" id=${checkboxId4delete}></td>
-</tr>
-`
-    })
-    addAllInputs();
-
-
-
-}
-
-
-
-const cancelFunction = function (index) {
-    console.log(index)
-    showedContent[index].status ? showedContent[index].status = false : showedContent[index].status = true;
-    console.log(showedContent[index].status)
-    displayExamples();
-}
-
-const deleteFunction = function (index) {
-    showedContent.splice(index, 1);
-    displayExamples();
-}
-
-
-document.addEventListener("DOMContentLoaded", () => {
-
-})
-document.addEventListener("DOMContentLoaded", () => { displayExamples() })
-//document.addEventListener("DOMContentLoaded", () => { displayExamples() })
-
-
-const addAllInputs = function () {
-    let allCancelInput = document.querySelectorAll(".checkbox4cancel");
-    let allDeleteInput = document.querySelectorAll(".checkbox4delete");
-
-    allCancelInput.forEach((value, index) => {
-        value.addEventListener("click", () => { cancelFunction(index); })
-    })
-    allDeleteInput.forEach((value, index) => {
-        value.addEventListener("click", () => { deleteFunction(index) })
-    })
-
-}
-/*document.addEventListener("DOMContentLoaded", () => {
-addAllInputs();}
-)*/
+document.addEventListener("DOMContentLoaded", () => { displayExamples(showedContent) })
 
 const wannaOtherExamples = function () {
     showedContent = Array();
     content.forEach((value) => { value.status = true })
-    randomizeOrderOfSentences(sentences,content);
-    makeShowedSentences();
-    displayExamples();
+    randomizeOrderOfSentences(sentences, content);
+    makeShowedSentences(content);
+    displayExamples(showedContent);
     showMaxPointComment();
 }
+import { newContent } from "/js/modules.js";
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector("#buttonForNewContent").addEventListener("click", () => { newContent(showedContent) })
+})
 
-const newContent = function () {
-    let myNewText = document.querySelector("#newText").value;
-    let myNewPoint = document.querySelector("#newPoint").value;
-    myNewPoint = parseInt(myNewPoint);
-    if (myNewPoint > 15 || myNewPoint < 0 || isNaN(myNewPoint) == true) {
-        alert("A pontszám csak 0 és 15 közé eső egész szám lehet.")
-        document.querySelector("#newPoint").value = "";
-    }
-    else {
-        let myNewObject = Object();
-        myNewObject.text = myNewText;
-        myNewObject.point = myNewPoint;
-        myNewObject.status = true;
-        showedContent[showedContent.length] = myNewObject;
-        displayExamples();
-        document.querySelector("#newText").value = "";
-        document.querySelector("#newPoint").value = "";
-    }
+import { frontWiev } from "/js/modules.js";
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector("#buttonForFrontWiev").addEventListener("click", () => { frontWiev(showedContent) })
+})
 
-}
-
-const frontWiev = function () {
-    let textForWiev = "";
-    showedContent.forEach((value) => {
-        let myText = value.status ? value.text : '';
-        textForWiev += myText
-    });
-    alert(textForWiev)
-}
-
-const makeOrderArray = function () {
+const makeOrderArray = function (showedContent) {
     orderArray = Array();
     showedContent.forEach((value, index) => { orderArray[index] = showedContent[index].point })
 }
-makeOrderArray();
+//import { makeOrderArray } from "/js/modules.js";
+makeOrderArray(showedContent);
 
 const increase = function () {
     //orderArray=Array();
-    makeOrderArray();
+    makeOrderArray(showedContent);
     increaseArray = Array();
     let min = maxPoint;
     let index = Number();
@@ -162,7 +64,6 @@ const increase = function () {
             if (min >= orderArray[i]) { min = orderArray[i]; index = i }
         }
         increaseArray[increaseArray.length] = min;
-        console.log(min, increaseArray, orderArray)
         orderArray.splice(index, 1)
     }
     orderArray = increaseArray.slice(0);
@@ -174,20 +75,18 @@ const increase = function () {
         showedContent.push(showedContentTemporary[myIndex]);
         showedContentTemporary.splice(myIndex, 1)
     })
-    if (dontDisplay == false) { displayExamples() };
-
-
+    if (dontDisplay == false) { displayExamples(showedContent) };
 }
 
+document.addEventListener("DOMContentLoaded", () => { document.querySelector("#buttonForIncrease").addEventListener("click", () => { increase() }) })
+
 const orderShowedContentAsOrderarrayWantIt = function () {
-    showedContentTemporary = showedContent.slice(0)
+    let showedContentTemporary = showedContent.slice(0)
     showedContent = Array();
     let myIndex = 0;
     orderArray = orderArray.reverse();
     orderArray.forEach((value1) => {
         showedContentTemporary.findIndex((value2, index2) => { if (value2.point == value1) { myIndex = index2; return myIndex } });
-        console.log(myIndex);
-        console.log(showedContentTemporary[myIndex]);
         showedContent.push(showedContentTemporary[myIndex]);
         //ha ugyanaz a pontszám, akkor ugyanazt írná ki újra
         showedContentTemporary.splice(myIndex, 1);
@@ -195,42 +94,36 @@ const orderShowedContentAsOrderarrayWantIt = function () {
 }
 
 const decrease = function () {
-    makeOrderArray();
+    makeOrderArray(showedContent);
     increase();
     orderShowedContentAsOrderarrayWantIt();
-    displayExamples();
+    displayExamples(showedContent);
 }
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector("#buttonForDecrease").addEventListener("click", () => { decrease() })
+})
 
-let dontDisplay=false;
+let dontDisplay = false;
 const showMaxPointComment = function () {
     let itWasShowedContent = showedContent.slice(0);
-    makeOrderArray();
+    makeOrderArray(showedContent);
     dontDisplay = true;
     increase();
     dontDisplay = false;
-    document.querySelector("#maxPointComment").innerHTML = `<i>${showedContent[showedContent.length - 1].text}</i>`
+    document.querySelector("#maxPointComment").innerHTML = `<i>${showedContent[showedContent.length - 1].text}</i> - ${showedContent[showedContent.length - 1].point} pont`
     showedContent = itWasShowedContent.slice(0);
 }
 
 document.addEventListener("DOMContentLoaded", () => { showMaxPointComment(); })
 
-const visitProfile = function () {
-    window.open("https://www.facebook.com/orbanviktor")
-}
+import { visiteProfile } from "/js/modules.js";
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector("#buttonForVisiteProfile").addEventListener("click", () => { visiteProfile() })
+})
 
-let textForWiev
-const copyContent = function () {
-    textForWiev = "";
-    showedContent.forEach((value) => {
-        let myText = value.status ? value.text : '';
-        textForWiev += myText
-    });
-    console.log(textForWiev)
-    document.querySelector("#textarea4copy").innerHTML = textForWiev;
-    document.querySelector("#textarea4copy").select();
-    document.querySelector("#textarea4copy").setSelectionRange(0, 99999)
-    document.execCommand("copy");
-}
+import { copyContent } from "/js/modules.js";
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector("#buttonForCopyContent").addEventListener("click", () => { copyContent(showedContent) })
+})
 
-document.addEventListener("DOMContentLoaded", () => { document.querySelector("#otherExamples").addEventListener("click",()=>{wannaOtherExamples()}) })
-
+document.addEventListener("DOMContentLoaded", () => { document.querySelector("#otherExamples").addEventListener("click", () => { wannaOtherExamples() }) })
