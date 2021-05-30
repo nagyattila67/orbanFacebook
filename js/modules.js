@@ -88,7 +88,6 @@ ${value.status ? `<td><span>${value.text}</span></td>` : `<td><s style='color:gr
     })
     showedContentNew = showedContent.slice(0);
     addAllInputs(showedContent, orderArray,showedContent, orderArray,increaseArray, maxPoint, dontDisplay);
-    console.log(orderArray);
 }
 
 export const makeOrderArray = function (orderArray, showedContent,increaseArray, maxPoint, dontDisplay) {
@@ -179,9 +178,7 @@ export const orderShowedContentAsOrderarrayWantIt = function (showedContent, ord
 
 export const decrease = function (showedContent, orderArray, increaseArray, maxPoint, dontDisplay) {
     if (showedContentNew.length != 0) { showedContent = showedContentNew.slice(0) }
-    console.log(showedContent)
     //makeOrderArray(orderArray, showedContent,increaseArray, maxPoint, dontDisplay)
-    console.log(orderArray)
     let orderArray2 = increase(showedContent, orderArray, increaseArray, maxPoint, dontDisplay);
     let showedContent2 = orderShowedContentAsOrderarrayWantIt(showedContent, orderArray2);
     displayExamples(showedContent2, orderArray,increaseArray, maxPoint, dontDisplay);
@@ -191,14 +188,10 @@ export const decrease = function (showedContent, orderArray, increaseArray, maxP
 
 export const showMaxPointComment = function (orderArray, showedContent, increaseArray, maxPoint, dontDisplay) {
     let itWasShowedContent = showedContent.slice(0);
-    console.log(showedContent)
     makeOrderArray(orderArray, showedContent,increaseArray, maxPoint, dontDisplay);
-    console.log(orderArray)
     dontDisplay = true;
     let orderArray2 = makeIncreasingOrder(orderArray)
-    console.log(orderArray2)
     let showedContent2 = orderShowedContentAsOrderarrayWantIt(showedContent, orderArray2)
-    console.log(showedContent2)
     dontDisplay = false;
     document.querySelector("#maxPointComment").innerHTML = `'<i>${showedContent2[showedContent2.length-1].text}</i>' - ${showedContent2[showedContent2.length-1].point} pont`
     showedContent = itWasShowedContent.slice(0);
@@ -212,8 +205,6 @@ export const makeIncreasingOrder = function (orderArray) {
             if (orderArray[i] > max) { max = orderArray[i];index = i }
         }
         newOrderArray[newOrderArray.length] = max;
-        console.log(max);
-        console.log(newOrderArray)
         orderArray.splice(index, 1)
     }
     return newOrderArray;
