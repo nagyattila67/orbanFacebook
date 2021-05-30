@@ -17,7 +17,7 @@ import {makeShowedSentences} from "/js/modules.js"
 makeShowedSentences(showedContent, content);
 
 import {displayExamples} from "/js/modules.js"
-displayExamples(showedContent);
+displayExamples(showedContent,orderArray);
 
 import {cancelFunction} from "/js/modules.js"
 import {deleteFunction} from "/js/modules.js"

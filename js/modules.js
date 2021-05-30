@@ -48,15 +48,19 @@ export const copyContent = function (showedContent) {
 
 export const cancelFunction = function (index, showedContent) {
     showedContent[index].status ? showedContent[index].status = false : showedContent[index].status = true;
-    displayExamples(showedContent);
+    displayExamples(showedContent,orderArray);
 }
 
-export const deleteFunction = function (index, showedContent) {
+export const deleteFunction = function (index, showedContent,orderArray) {
     showedContent.splice(index, 1);
-    displayExamples(showedContent);
+    orderArray.splice(index,1)
+    console.log(showedContent)
+    console.log(orderArray)
+    displayExamples(showedContent,orderArray);
+    return showedContent,orderArray
 }
 
-export const addAllInputs = function (showedContent) {
+export const addAllInputs = function (showedContent,orderArray) {
     let allCancelInput = document.querySelectorAll(".checkbox4cancel");
     let allDeleteInput = document.querySelectorAll(".checkbox4delete");
 
@@ -64,11 +68,11 @@ export const addAllInputs = function (showedContent) {
         value.addEventListener("click", () => { cancelFunction(index, showedContent); })
     })
     allDeleteInput.forEach((value, index) => {
-        value.addEventListener("click", () => { deleteFunction(index, showedContent) })
+        value.addEventListener("click", () => { deleteFunction(index, showedContent,orderArray) })
     })
 }
 
-export const displayExamples = function (showedContent) {
+export const displayExamples = function (showedContent,orderArray) {
     document.querySelector("#examples").innerHTML = "";
     showedContent.forEach((value, index) => {
         let checkboxId4cancel = "cancelId" + index;
@@ -82,7 +86,7 @@ ${value.status ? `<td><span>${value.text}</span></td>` : `<td><s style='color:gr
 </tr>
 `
     })
-    addAllInputs(showedContent);
+    addAllInputs(showedContent,orderArray);
 }
 
 export const makeOrderArray = function (orderArray, showedContent) {
@@ -108,7 +112,7 @@ export const newContent = function (showedContent) {
             myNewObject.point = myNewPoint;
             myNewObject.status = true;
             showedContent[showedContent.length] = myNewObject;
-            displayExamples(showedContent);
+            displayExamples(showedContent,orderArray);
             document.querySelector("#newText").value = "";
             document.querySelector("#newPoint").value = "";
         }
@@ -147,7 +151,7 @@ export const increase = function (orderArray, showedContent, increaseArray, maxP
         showedContent.push(showedContentTemporary[myIndex]);
         showedContentTemporary.splice(myIndex, 1)
     })
-    if (dontDisplay == false) { displayExamples(showedContent) };
+    if (dontDisplay == false) { displayExamples(showedContent,orderArray) };
     return orderArray
 }
 
@@ -168,7 +172,7 @@ export const orderShowedContentAsOrderarrayWantIt = function (showedContent, ord
 export const decrease = function (orderArray, showedContent, increaseArray, maxPoint, dontDisplay) {
     let orderArray2 = increase(orderArray, showedContent, increaseArray, maxPoint, dontDisplay);
     showedContent = orderShowedContentAsOrderarrayWantIt(showedContent, orderArray2);
-    displayExamples(showedContent);
+    displayExamples(showedContent,orderArray);
 }
 
 export const showMaxPointComment = function (orderArray, showedContent, increaseArray, maxPoint, dontDisplay) {
@@ -187,7 +191,7 @@ export const wannaOtherExamples = function (sentences, content, orderArray, show
     content.forEach((value) => { value.status = true })
     randomizeOrderOfSentences(sentences, content);
     makeShowedSentences(showedContent, content);
-    displayExamples(showedContent);
+    displayExamples(showedContent,orderArray);
     showMaxPointComment(orderArray, showedContent, increaseArray, maxPoint, dontDisplay);
     document.querySelector("#newText").value = "";
     document.querySelector("#newPoint").value = "";
