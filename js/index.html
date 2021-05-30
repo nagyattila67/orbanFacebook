@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="lib/bootstrap/bootstrap-5.0.1-dist/bootstrap-5.0.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/selectors.css">
+    <link rel="text/css" href="lib/fonts/roboto/Roboto/Roboto-Regular.ttf">
+    <link rel="text/css" href="lib/fonts/caveat/Caveat/static/Caveat-Medium.ttf">
+    <title>Sorvezető</title>
+    <script src="js/index.js" type="module"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-0 col-md-2 col-lg-2">
+                <img src="img/orbanv.jpeg" alt="Orbán Viktor">
+            </div>
+            <div id="main" class="col-sm-12 col-md-8 col-lg-8"
+                style="background-image: url(img/hello_rofik.jpg);background-size: 20%;background-repeat:repeat;">
+                <div class="row">
+                    <div class="col">
+                        <h1 id="title1">Kommenteljünk Orbán Viktor facebook oldalán!</h1>
+                        <p id="pageInfo"><small>Áthúzhatja vagy törölheti az Önnek nem tetsző sorokat, más példamondatokat
+                            kérhet és saját sorokat tehet hozzá. Megtekintheti a komment előlnézetét, s a '<i>másol</i> '
+                            gombbal a vágólapra másolhatja, a '<i>a profil meglátogatása</i>' gomb megnyomásával pedig a
+                            miniszterelnök facebook oldalát keresheti fel, ahol '<i>ctrl + v</i> ' billenytűkombinációval bemásolhatja a kommentjét. <br> Örömteli kommentelést kívánunk!</small></p>
+                        <div id="div4table">
+                            <table class="table table-bordered table-small">
+                                <tbody id="examples"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-evenly">
+                    
+                    <div class="col-5" style="text-align: center;">
+                        <button id="otherExamples" class="button btn-secondary">Más példakommenteket
+                            kérek</button>
+                    </div>
+                    <div class="col-3">
+                        <span>Rendezés pontszám szerint:</span>
+                    </div>
+                    <div class="col-2">
+                        <button id="buttonForIncrease" class="button btn-secondary btn-small">növekvő</button>
+                    </div>
+                    <div class="col-2">
+                        <button id="buttonForDecrease" class="button btn-secondary btn-small">csökkenő</button>
+                    </div>
+                  
+
+                </div>
+                <br>
+                <div class="row justify-content-evenly">
+                    <div class="col">
+                        <div class="mt-1" style="text-align: center;"><span>Ha pedig akar, akár saját tartalmat is írhat
+                                hozzá!: </span>
+                            <input style="width:500px" id="newText" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 row justify-content-center" style="text-align: center;">
+                    <div class="col-3">
+                        <span>Pontszám <small>(max:15)</small>: </span><input style="width:50px" min="0" max="15" type="number"
+                            id="newPoint"></input>
+                    </div>
+                    <div class="col-1"><button id="buttonForNewContent" class="button btn-secondary btn-small"
+                            >mehet</button>
+                    </div>
+                    <div class="col-1"><button id="buttonForFrontWiev" class="button btn-secondary btn-small"
+                            >elölnézet</button></div>
+                    <div class="col-1"><button id="buttonForCopyContent" class="button btn-secondary btn-small"
+                            >Másolás</button></div>
+                    <div class="col-3"><button id="buttonForVisiteProfile" class="button btn-primary btn-small">A profil meglátogatása</button></div>
+                <textarea id="textarea4copy" style="width:0px;height:0px;padding:0px;"></textarea>
+                </div>
+                <div id="div4MaxPointComment" class="mt-3 row justify-content-center" style="text-align: center;">
+                    <div class="col-3"><span>Legtöbb pontot ér:</span></div>
+                    <div class="col-9"><span id="maxPointComment"></span></div>
+                </div>
+            </div>
+
+            <div class="col-sm-0 col-md-2 col-lg-2">
+                <img src="img/orbanv.jpeg" alt="Orbán Viktor">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
