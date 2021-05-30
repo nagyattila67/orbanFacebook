@@ -7,58 +7,64 @@ let orderArray = Array();
 
 const maxPoint = 15;
 
-import {opening} from "/js/modules.js"
+import { opening } from "/js/modules.js"
 opening(sentences, maxPoint, points, content);
 
-import {randomizeOrderOfSentences} from "/js/modules.js"
-randomizeOrderOfSentences(sentences,content);
+import { randomizeOrderOfSentences } from "/js/modules.js"
+randomizeOrderOfSentences(sentences, content);
 
-import {makeShowedSentences} from "/js/modules.js"
+import { makeShowedSentences } from "/js/modules.js"
 makeShowedSentences(showedContent, content);
 
-import {displayExamples} from "/js/modules.js"
-displayExamples(showedContent,orderArray);
 
-import {cancelFunction} from "/js/modules.js"
-import {deleteFunction} from "/js/modules.js"
-import {newContent} from "/js/modules.js"
-document.addEventListener("DOMContentLoaded", () => { 
-    document.querySelector("#buttonForNewContent").addEventListener("click",()=>{newContent(showedContent)})
+
+import { cancelFunction } from "/js/modules.js"
+import { deleteFunction } from "/js/modules.js"
+import { newContent } from "/js/modules.js"
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector("#buttonForNewContent").addEventListener("click", () => { newContent(showedContent, orderArray,increaseArray, maxPoint, dontDisplay) })
 })
 
-import {frontWiev} from "/js/modules.js"
-document.addEventListener("DOMContentLoaded", () => { 
-    document.querySelector("#buttonForFrontWiev").addEventListener("click",()=>{frontWiev(showedContent)})
+import { frontWiev } from "/js/modules.js"
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector("#buttonForFrontWiev").addEventListener("click", () => { frontWiev(showedContent) })
 })
 
-import {makeOrderArray} from "/js/modules.js"
-makeOrderArray(orderArray,showedContent);
 
-import {increase} from "/js/modules.js"
-document.addEventListener("DOMContentLoaded", () => { 
-    document.querySelector("#buttonForIncrease").addEventListener("click",()=>{increase(orderArray,showedContent,increaseArray,maxPoint,dontDisplay)})
+
+import { increase } from "/js/modules.js"
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector("#buttonForIncrease").addEventListener("click", () => { increase(showedContent, orderArray, increaseArray, maxPoint, dontDisplay) })
 })
 
-import {decrease} from "/js/modules.js"
-document.addEventListener("DOMContentLoaded", () => { 
-    document.querySelector("#buttonForDecrease").addEventListener("click",()=>{decrease(orderArray,showedContent,increaseArray,maxPoint,dontDisplay)})
+import { decrease } from "/js/modules.js"
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector("#buttonForDecrease").addEventListener("click", () => { decrease(showedContent, orderArray, increaseArray, maxPoint, dontDisplay) })
 })
 
 let dontDisplay = false;
-import {showMaxPointComment} from "/js/modules.js"
-document.addEventListener("DOMContentLoaded", () => { showMaxPointComment(orderArray,showedContent,increaseArray,maxPoint,dontDisplay); })
+import { showMaxPointComment } from "/js/modules.js"
+document.addEventListener("DOMContentLoaded", () => { showMaxPointComment(orderArray, showedContent, increaseArray, maxPoint, dontDisplay); })
 
-import {visiteProfile} from "/js/modules.js"
+import { visiteProfile } from "/js/modules.js"
 
-document.addEventListener("DOMContentLoaded", () => { 
-    document.querySelector("#buttonForVisiteProfile").addEventListener("click",()=>{visiteProfile()})
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector("#buttonForVisiteProfile").addEventListener("click", () => { visiteProfile() })
 })
 
-import {copyContent} from "/js/modules.js"
-document.addEventListener("DOMContentLoaded", () => { 
-    document.querySelector("#buttonForCopyContent").addEventListener("click",()=>{copyContent(showedContent)})
+import { copyContent } from "/js/modules.js"
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector("#buttonForCopyContent").addEventListener("click", () => { copyContent(showedContent) })
 })
 
-import {wannaOtherExamples} from "/js/modules.js"
-document.addEventListener("DOMContentLoaded", () => { document.querySelector("#otherExamples").addEventListener("click", () => {
-    wannaOtherExamples(sentences,content,orderArray,showedContent,increaseArray,maxPoint,dontDisplay) }) })
+import { wannaOtherExamples } from "/js/modules.js"
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector("#otherExamples").addEventListener("click", () => {
+        wannaOtherExamples(sentences, content, orderArray, showedContent, increaseArray, maxPoint, dontDisplay)
+    })
+})
+import { makeOrderArray } from "/js/modules.js"
+makeOrderArray(orderArray, showedContent,increaseArray, maxPoint, dontDisplay);
+
+import { displayExamples } from "/js/modules.js"
+displayExamples(showedContent, orderArray,increaseArray, maxPoint, dontDisplay);

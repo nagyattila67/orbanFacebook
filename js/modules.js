@@ -46,33 +46,33 @@ export const copyContent = function (showedContent) {
     document.execCommand("copy");
 }
 
-export const cancelFunction = function (index, showedContent) {
+export const cancelFunction = function (index, showedContent, orderArray) {
     showedContent[index].status ? showedContent[index].status = false : showedContent[index].status = true;
-    displayExamples(showedContent,orderArray);
+    displayExamples(showedContent, orderArray);
 }
 
-export const deleteFunction = function (index, showedContent,orderArray) {
+export const deleteFunction = function (index, showedContent, orderArray,increaseArray, maxPoint, dontDisplay) {
     showedContent.splice(index, 1);
-    orderArray.splice(index,1)
-    console.log(showedContent)
-    console.log(orderArray)
-    displayExamples(showedContent,orderArray);
-    return showedContent,orderArray
+    orderArray.splice(index, 1)
+    displayExamples(showedContent, orderArray);
+    showedContentNew = showedContent.slice(0);
+    showMaxPointComment(orderArray, showedContentNew, increaseArray, maxPoint, dontDisplay)
+    
 }
 
-export const addAllInputs = function (showedContent,orderArray) {
+export const addAllInputs = function (showedContent, orderArray,increaseArray, maxPoint, dontDisplay) {
     let allCancelInput = document.querySelectorAll(".checkbox4cancel");
     let allDeleteInput = document.querySelectorAll(".checkbox4delete");
 
     allCancelInput.forEach((value, index) => {
-        value.addEventListener("click", () => { cancelFunction(index, showedContent); })
+        value.addEventListener("click", () => { cancelFunction(index, showedContent, orderArray); })
     })
     allDeleteInput.forEach((value, index) => {
-        value.addEventListener("click", () => { deleteFunction(index, showedContent,orderArray) })
+        value.addEventListener("click", () => { deleteFunction(index,  showedContent, orderArray,increaseArray, maxPoint, dontDisplay) })
     })
 }
 
-export const displayExamples = function (showedContent,orderArray) {
+export const displayExamples = function (showedContent, orderArray,increaseArray, maxPoint, dontDisplay) {
     document.querySelector("#examples").innerHTML = "";
     showedContent.forEach((value, index) => {
         let checkboxId4cancel = "cancelId" + index;
@@ -86,15 +86,17 @@ ${value.status ? `<td><span>${value.text}</span></td>` : `<td><s style='color:gr
 </tr>
 `
     })
-    addAllInputs(showedContent,orderArray);
+    showedContentNew = showedContent.slice(0);
+    addAllInputs(showedContent, orderArray,showedContent, orderArray,increaseArray, maxPoint, dontDisplay);
+    console.log(orderArray);
 }
 
-export const makeOrderArray = function (orderArray, showedContent) {
+export const makeOrderArray = function (orderArray, showedContent,increaseArray, maxPoint, dontDisplay) {
     //orderArray = Array();
     showedContent.forEach((value, index) => { orderArray[index] = showedContent[index].point })
 }
 
-export const newContent = function (showedContent) {
+export const newContent = function (showedContent, orderArray,increaseArray, maxPoint, dontDisplay) {
     let myNewText = document.querySelector("#newText").value;
     let myNewPoint = document.querySelector("#newPoint").value;
     myNewPoint = parseInt(myNewPoint);
@@ -107,16 +109,20 @@ export const newContent = function (showedContent) {
             alert("Nem írt kommentet!")
         }
         else {
+            makeOrderArray(orderArray, showedContent,increaseArray, maxPoint, dontDisplay)
             let myNewObject = Object();
             myNewObject.text = myNewText;
             myNewObject.point = myNewPoint;
             myNewObject.status = true;
             showedContent[showedContent.length] = myNewObject;
-            displayExamples(showedContent,orderArray);
+            orderArray.push(myNewPoint)
+            displayExamples(showedContent, orderArray,increaseArray, maxPoint, dontDisplay);
             document.querySelector("#newText").value = "";
             document.querySelector("#newPoint").value = "";
         }
     }
+    showedContentNew = showedContent.slice(0);
+    showMaxPointComment(orderArray, showedContentNew, increaseArray, maxPoint, dontDisplay)
 }
 
 export const frontWiev = function (showedContent) {
@@ -128,9 +134,10 @@ export const frontWiev = function (showedContent) {
     alert(textForWiev)
 }
 
-export const increase = function (orderArray, showedContent, increaseArray, maxPoint, dontDisplay) {
+export const increase = function (showedContent, orderArray, increaseArray, maxPoint, dontDisplay) {
+    if (showedContentNew.length != 0) { showedContent = showedContentNew.slice(0) }
     orderArray = Array();
-    makeOrderArray(orderArray, showedContent);
+    makeOrderArray(orderArray, showedContent,increaseArray, maxPoint, dontDisplay)
     increaseArray = Array();
     let min = maxPoint;
     let index = Number();
@@ -151,7 +158,8 @@ export const increase = function (orderArray, showedContent, increaseArray, maxP
         showedContent.push(showedContentTemporary[myIndex]);
         showedContentTemporary.splice(myIndex, 1)
     })
-    if (dontDisplay == false) { displayExamples(showedContent,orderArray) };
+    showedContentTemporary = Array();
+    if (dontDisplay == false) { displayExamples(showedContent, orderArray,increaseArray, maxPoint, dontDisplay) };
     return orderArray
 }
 
@@ -169,32 +177,59 @@ export const orderShowedContentAsOrderarrayWantIt = function (showedContent, ord
     return showedContent;
 }
 
-export const decrease = function (orderArray, showedContent, increaseArray, maxPoint, dontDisplay) {
-    let orderArray2 = increase(orderArray, showedContent, increaseArray, maxPoint, dontDisplay);
-    showedContent = orderShowedContentAsOrderarrayWantIt(showedContent, orderArray2);
-    displayExamples(showedContent,orderArray);
+export const decrease = function (showedContent, orderArray, increaseArray, maxPoint, dontDisplay) {
+    if (showedContentNew.length != 0) { showedContent = showedContentNew.slice(0) }
+    console.log(showedContent)
+    //makeOrderArray(orderArray, showedContent,increaseArray, maxPoint, dontDisplay)
+    console.log(orderArray)
+    let orderArray2 = increase(showedContent, orderArray, increaseArray, maxPoint, dontDisplay);
+    let showedContent2 = orderShowedContentAsOrderarrayWantIt(showedContent, orderArray2);
+    displayExamples(showedContent2, orderArray,increaseArray, maxPoint, dontDisplay);
+    showMaxPointComment(orderArray, showedContent, increaseArray, maxPoint, dontDisplay)
+    showedContentNew = showedContent.slice(0);
 }
 
 export const showMaxPointComment = function (orderArray, showedContent, increaseArray, maxPoint, dontDisplay) {
     let itWasShowedContent = showedContent.slice(0);
-    makeOrderArray(orderArray, showedContent);
+    console.log(showedContent)
+    makeOrderArray(orderArray, showedContent,increaseArray, maxPoint, dontDisplay);
+    console.log(orderArray)
     dontDisplay = true;
-    let orderArray2 = increase(orderArray, showedContent, increaseArray, maxPoint, dontDisplay);
+    let orderArray2 = makeIncreasingOrder(orderArray)
+    console.log(orderArray2)
     let showedContent2 = orderShowedContentAsOrderarrayWantIt(showedContent, orderArray2)
+    console.log(showedContent2)
     dontDisplay = false;
-    document.querySelector("#maxPointComment").innerHTML = `'<i>${showedContent2[0].text}</i>' - ${showedContent2[0].point} pont`
+    document.querySelector("#maxPointComment").innerHTML = `'<i>${showedContent2[showedContent2.length-1].text}</i>' - ${showedContent2[showedContent2.length-1].point} pont`
     showedContent = itWasShowedContent.slice(0);
 }
 
+export const makeIncreasingOrder = function (orderArray) {
+    let newOrderArray = Array();
+    while (orderArray.length > 0) {
+        let max = 0;let index=-10;
+        for (let i = 0; i < orderArray.length; i++) {
+            if (orderArray[i] > max) { max = orderArray[i];index = i }
+        }
+        newOrderArray[newOrderArray.length] = max;
+        console.log(max);
+        console.log(newOrderArray)
+        orderArray.splice(index, 1)
+    }
+    return newOrderArray;
+}
+
+let showedContentNew = Array();
 export const wannaOtherExamples = function (sentences, content, orderArray, showedContent, increaseArray, maxPoint, dontDisplay) {
     showedContent = Array();
     content.forEach((value) => { value.status = true })
     randomizeOrderOfSentences(sentences, content);
     makeShowedSentences(showedContent, content);
-    displayExamples(showedContent,orderArray);
+    displayExamples(showedContent, orderArray,increaseArray, maxPoint, dontDisplay);
     showMaxPointComment(orderArray, showedContent, increaseArray, maxPoint, dontDisplay);
     document.querySelector("#newText").value = "";
     document.querySelector("#newPoint").value = "";
+    showedContentNew = showedContent.slice(0);
 }
 
 
