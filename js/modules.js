@@ -96,6 +96,7 @@ export const makeOrderArray = function (orderArray, showedContent,increaseArray,
 }
 
 export const newContent = function (showedContent, orderArray,increaseArray, maxPoint, dontDisplay) {
+    if(showedContentNew.length!=0){showedContent=showedContentNew;}
     let myNewText = document.querySelector("#newText").value;
     let myNewPoint = document.querySelector("#newPoint").value;
     myNewPoint = parseInt(myNewPoint);
